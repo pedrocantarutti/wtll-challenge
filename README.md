@@ -1,9 +1,9 @@
 # wtll-challenge
 
 
-# Endpoint de usuários
+# Endpoint do desáfio
 
-### Listar todos usuários
+### Listar todos produtos
 
 `GET /api/v1/products/`
 * Response: 
@@ -22,7 +22,7 @@
 ]
 ```
 
-### Retornar um usuário especifico
+### Agrupar os produtos por data (init_date e finish_date)
 
 `GET /api/v1/products/group/`
 * Request: /api/v1/products/group/?init_date=2021-02-11&finish_date=2021-02-12
