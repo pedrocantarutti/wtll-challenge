@@ -19,7 +19,6 @@ def list_products(request):
 
 @api_view(['GET'])
 def group_products(request):
-    # init_date e finish_date
     init_date = request.query_params.get('init_date')
     finish_date = request.query_params.get('finish_date')
     print(init_date, finish_date)
@@ -27,11 +26,14 @@ def group_products(request):
     response_api = requests.get('https://mc3nt37jj5.execute-api.sa-east-1.amazonaws.com/default/hourth_desafio')
     if request.method == 'GET':
         parse_json = json.loads(response_api.text)
-        struct_data = []
-        for product in parse_json:
-            consult_date = product['consult_date']
-            if check_in_range(init_date, finish_date, consult_date):
-                struct_data.append(product)
+        struct_data = parse_json
+
+        if init_date and finish_date:
+            struct_data = []
+            for product in parse_json:
+                consult_date = product['consult_date']
+                if check_in_range(init_date, finish_date, consult_date):
+                    struct_data.append(product)
 
         sorted_products = sorted(struct_data, key=lambda product: product['product_url'])
         grouped_products = [list(result) for key, result in groupby(
